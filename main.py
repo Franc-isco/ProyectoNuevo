@@ -1,5 +1,6 @@
 from servicios.consumir_api_users import consumir_api_users, crear_usuario, actualizar_usuario, eliminar_usuario
 from servicios.consumir_api_todos import consulta_api_todos, crear_todo, actualizar_todo, eliminar_todo
+from negocios.encriptacion import encriptar_contrasena, desencriptar_contrasena, verificar_contrasena
 
 def mostrar_menu():
     print("Seleccione una opción:")
@@ -11,7 +12,10 @@ def mostrar_menu():
     print("6. Crear nuevo todo (POST)")
     print("7. Actualizar todo (PUT)")
     print("8. Eliminar todo (DELETE)")
-    print("9. Salir")
+    print("9. Encriptar contraseña")  
+    print("10. Desencriptar contraseña") 
+    print("11. Verificar contraseña")  
+    print("12. Salir")
 
 def main():
     while True:
@@ -119,11 +123,33 @@ def main():
             eliminar_todo(todo_id)  # Llamar a la función para eliminar el todo
 
         elif opcion == "9":
+            contrasena = input("Ingrese la contraseña a encriptar: ")
+            token = encriptar_contrasena(contrasena)
+            print(f"Contraseña encriptada: {token}")
+
+        elif opcion == "10":
+            token = input("Ingrese el token de la contraseña a desencriptar: ")
+            try:
+                contrasena_desencriptada = desencriptar_contrasena(token.encode('utf-8'))
+                print(f"Contraseña desencriptada: {contrasena_desencriptada}")
+            except Exception as e:
+                print(f"Error al desencriptar: {e}")
+
+        elif opcion == "11":
+            contrasena_original = input("Ingrese la contraseña original: ")
+            token = input("Ingrese el token para verificar: ")
+            try:
+                es_correcta = verificar_contrasena(contrasena_original, token.encode('utf-8'))
+                print(f"La contraseña es correcta: {es_correcta}")
+            except Exception as e:
+                print(f"Error en la verificación: {e}")
+
+        elif opcion == "12":
             print("Saliendo del programa...")
             break
 
         else:
             print("Opción no válida. Por favor, intente de nuevo.")
 
- 
-main()
+if __name__ == "__main__":
+    main()

@@ -8,9 +8,8 @@ def generación_clave():
     location = os.path.join('negocios', file) #ruta relativa
     location = os.path.abspath(location) #ruta absoluta
     location = os.path.realpath(location) #ruta real
-    archivo = open(f"{location}", "w+") #abre archivo en modo escritura
-    archivo.write(clave_guardar) 
-    archivo.close() #cierra el archivo, guardado correctamente
+    with open(location, "w+") as archivo:  # Usa 'with' para manejar el archivo
+        archivo.write(clave_guardar) 
 
-generación_clave()
-
+if not os.path.exists(os.path.join('negocios', 'clave.py')):
+    generación_clave()
