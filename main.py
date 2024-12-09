@@ -1,5 +1,5 @@
-import servicios.consumir_api
+import servicios
 
-servicios.consumir_api.consulta_api_todos()
+servicios.consumir_api_todos.consulta_api_todos()
 
-#servicios.consumir_api.consumir_api_users()
+# servicios.consumir_api_users.consumir_api_users()
