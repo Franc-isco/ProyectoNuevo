@@ -1,7 +1,8 @@
 import requests
+from negocios.negocio_url import url_servicio
 
 def consulta_api_todos():
-    direccion = "https://jsonplaceholder.typicode.com/todos"
+    direccion = url_servicio("todos")
     try:
         respuesta = requests.get(direccion)
 
@@ -20,7 +21,7 @@ def consulta_api_todos():
         print("No se pudo establecer la conexión.")
 
 #llamar a la funcion
-#consulta_api_todos()
+consulta_api_todos()
 
 def consumir_api_users():
     direccion = "https://jsonplaceholder.typicode.com/users"
