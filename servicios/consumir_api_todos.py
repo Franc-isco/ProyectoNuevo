@@ -29,5 +29,78 @@ def consulta_api_todos():
 #llamar a la funcion
 consulta_api_todos()
 
+def crear_todo(user_id, titulo, completado=False):
+    direccion_api = url_servicio("todos")
+    
+    nuevo_todo = {
+        "userId": user_id,
+        "title": titulo,
+        "completed": completado
+    }
+    
+    try:
+        respuesta = requests.post(direccion_api, json=nuevo_todo)
+
+        if respuesta.status_code == 201:  # Código 201 para éxito en creación
+            print("Todo creado exitosamente:")
+            print(respuesta.json())
+        else:
+            print(f"Error: {respuesta.status_code}")
+
+    except requests.exceptions.Timeout:
+        print("Se sobrepasó el tiempo de espera para la respuesta.")
+    
+    except requests.exceptions.RequestException as error:
+        print(f"Error en la solicitud: {error}")
+    
+    except requests.exceptions.ConnectionError:
+        print("No se pudo establecer la conexión.")
 
 
+def actualizar_todo(todo_id, titulo, completado):
+    direccion_api = url_servicio(f"todos/{todo_id}")  # URL para el todo específico
+    
+    todo_actualizado = {
+        "title": titulo,
+        "completed": completado
+    }
+    
+    try:
+        respuesta = requests.put(direccion_api, json=todo_actualizado)
+
+        if respuesta.status_code == 200:  # Código 200 para éxito en actualización
+            print("Todo actualizado exitosamente:")
+            print(respuesta.json())
+        else:
+            print(f"Error al actualizar: {respuesta.status_code}")
+
+    except requests.exceptions.Timeout:
+        print("Se sobrepasó el tiempo de espera para la respuesta.")
+    
+    except requests.exceptions.RequestException as error:
+        print(f"Error en la solicitud: {error}")
+    
+    except requests.exceptions.ConnectionError:
+        print("No se pudo establecer la conexión.")
+
+def eliminar_todo(todo_id):
+    direccion_api = url_servicio(f"todos/{todo_id}")  # URL para el todo específico
+    
+    try:
+        respuesta = requests.delete(direccion_api)
+
+        if respuesta.status_code == 200:  # Código 200 para éxito en eliminación
+            print("Todo eliminado exitosamente.")
+        elif respuesta.status_code == 404:  # Código 404 si no se encuentra el todo
+            print("Error: Todo no encontrado.")
+        else:
+            print(f"Error al eliminar: {respuesta.status_code}")
+
+    except requests.exceptions.Timeout:
+        print("Se sobrepasó el tiempo de espera para la respuesta.")
+    
+    except requests.exceptions.RequestException as error:
+        print(f"Error en la solicitud: {error}")
+    
+    except requests.exceptions.ConnectionError:
+        print("No se pudo establecer la conexión.")
