@@ -1,45 +1,71 @@
-from db_connection import generar_conexion
+from datos.db_connection import generar_conexion, cerrar_conexion
 from modelos.todos import Todo
 
-def create_todo(conn, todo):
-    """Crea un nuevo todo en la base de datos."""
-    sql = ''' INSERT INTO todos(idtodo, title, completed, iduser)
-              VALUES(%s, %s, %s, %s) '''
-    cur = conn.cursor()
-    cur.execute(sql, (todo.idtodo, todo.title, todo.completed, todo.iduser))
-    conn.commit()
-    return cur.lastrowid
+def insertar_todo(todo: Todo):
+    conexion = generar_conexion()
+    if conexion:
+        cursor = conexion.cursor()
+        sql = '''INSERT INTO todos (title, completed, iduser) 
+                 VALUES (%s, %s, %s)'''
+        datos = (todo.title, todo.completed, todo.iduser)
 
-def get_all_todos(conn):
-    """Obtiene todos los todos de la base de datos."""
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM todos")
-    rows = cur.fetchall()  # Obtener todos los registros
+        try:
+            cursor.execute(sql, datos)
+            conexion.commit()
+            print('Todo insertado con éxito')
+        except mysql.connector.Error as error:
+            print(f'Error al insertar todo: {error}')
+        finally:
+            cursor.close()
+            cerrar_conexion(conexion)
 
-    todos = []  # Lista para almacenar los objetos Todo
-    for row in rows:
-        todos.append(Todo(
-            idtodo=row[0],
-            title=row[1],
-            completed=row[2],
-            iduser=row[3]
-        ))
+def obtener_todos():
+    conexion = generar_conexion()
+    if conexion:
+        cursor = conexion.cursor(dictionary=True)
+        sql = '''SELECT * FROM todos'''
+        try:
+            cursor.execute(sql)
+            resultados = cursor.fetchall()
+            return [Todo(**res) for res in resultados]  # Crea instancias de Todo
+        except mysql.connector.Error as error:
+            print(f'Error al obtener todos: {error}')
+            return None
+        finally:
+            cursor.close()
+            cerrar_conexion(conexion)
 
-    return todos  
+def actualizar_todo(todo_id, nuevos_datos: Todo):
+    conexion = generar_conexion()
+    if conexion:
+        cursor = conexion.cursor()
+        sql = '''UPDATE todos 
+                 SET title = %s, completed = %s, iduser = %s 
+                 WHERE idtodo = %s'''
+        datos = (nuevos_datos.title, nuevos_datos.completed, nuevos_datos.iduser, todo_id)
 
-def update_todo(conn, todo):
-    """Actualiza un todo en la base de datos."""
-    sql = ''' UPDATE todos
-              SET title = %s,
-                  completed = %s
-              WHERE idtodo = %s '''
-    cur = conn.cursor()
-    cur.execute(sql, (todo.title, todo.completed, todo.idtodo))
-    conn.commit()
+        try:
+            cursor.execute(sql, datos)
+            conexion.commit()
+            print('Todo actualizado con éxito')
+        except mysql.connector.Error as error:
+            print(f'Error al actualizar todo: {error}')
+        finally:
+            cursor.close()
+            cerrar_conexion(conexion)
 
-def delete_todo(conn, todo_id):
-    """Elimina un todo de la base de datos por su ID."""
-    sql = 'DELETE FROM todos WHERE idtodo=%s'
-    cur = conn.cursor()
-    cur.execute(sql, (todo_id,))
-    conn.commit()
+def eliminar_todo(todo_id):
+    conexion = generar_conexion()
+    if conexion:
+        cursor = conexion.cursor()
+        sql = '''DELETE FROM todos WHERE idtodo = %s'''
+        
+        try:
+            cursor.execute(sql, (todo_id,))
+            conexion.commit()
+            print('Todo eliminado con éxito')
+        except mysql.connector.Error as error:
+            print(f'Error al eliminar todo: {error}')
+        finally:
+            cursor.close()
+            cerrar_conexion(conexion)

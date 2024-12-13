@@ -1,12 +1,17 @@
 import mysql.connector
 from mysql.connector import errorcode
 
-def generar_conexion(user, password, server, database):
+USER = 'tu_usuario'
+PASSWORD = 'tu_contraseña'
+SERVER = 'tu_servidor'
+DATABASE = "tu_basededatos"
+
+def generar_conexion():
     config = {
-        'user': user,
-        'password': password,
-        'host': server,
-        'database': database
+        'user': USER,
+        'password': PASSWORD,
+        'host': SERVER,
+        'database': DATABASE
     }
     
     try:  # Establecer conexión
@@ -26,8 +31,8 @@ def generar_conexion(user, password, server, database):
         else:
             print('Error:', error)
         return None
-    finally:
-        # Cerrar la conexión si está abierta
-        if 'conexion' in locals() and conexion.is_connected():
-            conexion.close()
-            print('Conexión cerrada')
+
+def cerrar_conexion(conexion):
+    if conexion.is_connected():
+        conexion.close()
+        print('Conexión cerrada')

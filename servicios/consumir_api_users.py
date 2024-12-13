@@ -38,7 +38,7 @@ def consumir_api_users():
     except requests.exceptions.ConnectionError:
         print("No se pudo establecer la conexión.")
 
-#consumir_api_users()
+
 
 def crear_usuario(nombre, username, email, telefono, website, direccion, compañia):
     direccion_api = url_servicio("users")

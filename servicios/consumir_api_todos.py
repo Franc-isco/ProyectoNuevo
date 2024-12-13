@@ -26,8 +26,7 @@ def consulta_api_todos():
     except requests.exceptions.ConnectionError:
         print("No se pudo establecer la conexión.")
 
-#llamar a la funcion
-consulta_api_todos()
+
 
 def crear_todo(user_id, titulo, completado=False):
     direccion_api = url_servicio("todos")
