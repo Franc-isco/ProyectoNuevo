@@ -5,7 +5,7 @@ from mysql.connector import errorcode
 USER = 'root'
 PASSWORD = ''
 SERVER = 'localhost'
-DATABASE = 'prueba3_api'
+DATABASE = 'DLL' #este nombre le pusimos a nuestra base de datos al crearla (por eso el nombre)
 
 def generar_conexion():
     config = {
