@@ -122,18 +122,17 @@ def mostrar_menu_todos():
 
 def main():
     while True:
-        mostrar_menu_principal()  # Primero se muestra el menú
+        mostrar_menu_principal()  
         opcion_principal = input("Ingrese el número de la opción: ")
 
         if opcion_principal == "1":
             while True:
-                mostrar_menu_usuarios()  # Mostrar el submenú de usuarios
+                mostrar_menu_usuarios()  
                 opcion_usuario = input("Ingrese el número de la opción: ")
 
                 if opcion_usuario == "1":
-                    # Esta línea se ejecuta solo si el usuario elige esta opción
                     print("Usuarios existentes:")
-                    consumir_api_users()  # Esta función imprime los usuarios
+                    consumir_api_users()  
                 elif opcion_usuario == "2":
                     crear_nuevo_usuario()
                 elif opcion_usuario == "3":
@@ -142,18 +141,18 @@ def main():
                     user_id = input("Ingrese el ID del usuario que desea eliminar: ")
                     eliminar_usuario(user_id)
                 elif opcion_usuario == "5":
-                    break  # Volver al menú principal
+                    break  
                 else:
                     print("Opción no válida. Por favor, intente de nuevo.")
 
         elif opcion_principal == "2":
             while True:
-                mostrar_menu_todos()  # Mostrar el submenú de todos
+                mostrar_menu_todos()  
                 opcion_todo = input("Ingrese el número de la opción: ")
 
                 if opcion_todo == "1":
                     print("Todos existentes:")
-                    consulta_api_todos()  # Esta función imprime los todos
+                    consulta_api_todos()  
                 elif opcion_todo == "2":
                     crear_nuevo_todo()
                 elif opcion_todo == "3":
@@ -165,7 +164,7 @@ def main():
                     todo_id = input("Ingrese el ID del todo que desea eliminar: ")
                     eliminar_todo(todo_id)
                 elif opcion_todo == "5":
-                    break  # Volver al menú principal
+                    break  
                 else:
                     print("Opción no válida. Por favor, intente de nuevo.")
 
