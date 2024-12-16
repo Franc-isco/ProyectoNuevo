@@ -1,7 +1,8 @@
 import sys
 import os
 
-# Ajustar el path para incluir la carpeta del proyecto
+#Ajustar el path para incluir la carpeta del proyecto 
+#Sin esto no leía las otras carperas del proyecto
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 
 import requests
@@ -40,7 +41,7 @@ def crear_todo(user_id, titulo, completado=False):
     try:
         respuesta = requests.post(direccion_api, json=nuevo_todo)
 
-        if respuesta.status_code == 201:  # Código 201 para éxito en creación
+        if respuesta.status_code == 201:  
             print("Todo creado exitosamente:")
             print(respuesta.json())
         else:
@@ -57,7 +58,7 @@ def crear_todo(user_id, titulo, completado=False):
 
 
 def actualizar_todo(todo_id, titulo, completado):
-    direccion_api = url_servicio(f"todos/{todo_id}")  # URL para el todo específico
+    direccion_api = url_servicio(f"todos/{todo_id}")  
     
     todo_actualizado = {
         "title": titulo,
@@ -83,7 +84,7 @@ def actualizar_todo(todo_id, titulo, completado):
         print("No se pudo establecer la conexión.")
 
 def eliminar_todo(todo_id):
-    direccion_api = url_servicio(f"todos/{todo_id}")  # URL para el todo específico
+    direccion_api = url_servicio(f"todos/{todo_id}") 
     
     try:
         respuesta = requests.delete(direccion_api)

@@ -1,7 +1,7 @@
 import sys
 import os
 
-# Ajustar el path para incluir la carpeta del proyecto
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 
 import requests
@@ -71,7 +71,7 @@ def crear_usuario(nombre, username, email, telefono, website, direccion, compañ
 
         if respuesta.status_code == 201:  # Código 201 para éxito en creación
             print("Usuario creado exitosamente:")
-            print(respuesta.json())  # Aquí recibes el nuevo usuario con su nuevo ID
+            print(respuesta.json())  
         else:
             print(f"Error: {respuesta.status_code}")
 
@@ -85,7 +85,7 @@ def crear_usuario(nombre, username, email, telefono, website, direccion, compañ
         print("No se pudo establecer la conexión.")
 
 def actualizar_usuario(user_id, nombre, username, email, telefono, website, direccion, compañia):
-    direccion_api = url_servicio(f"users/{user_id}")  # URL para el usuario específico
+    direccion_api = url_servicio(f"users/{user_id}") 
     
     usuario_actualizado = {
         "name": nombre,
@@ -130,7 +130,7 @@ def actualizar_usuario(user_id, nombre, username, email, telefono, website, dire
 
 
 def eliminar_usuario(user_id):
-    direccion_api = url_servicio(f"users/{user_id}")  # URL para el usuario específico
+    direccion_api = url_servicio(f"users/{user_id}") 
     
     try:
         respuesta = requests.delete(direccion_api)

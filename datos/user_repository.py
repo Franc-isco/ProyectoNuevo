@@ -27,7 +27,7 @@ def obtener_usuarios():
         try:
             cursor.execute(sql)
             resultados = cursor.fetchall()
-            return [User(**res) for res in resultados]  # Crea instancias de User
+            return [User(**res) for res in resultados] 
         except mysql.connector.Error as error:
             print(f'Error al obtener usuarios: {error}')
             return None

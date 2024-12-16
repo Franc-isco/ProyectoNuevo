@@ -27,7 +27,7 @@ def obtener_todos():
         try:
             cursor.execute(sql)
             resultados = cursor.fetchall()
-            return [Todo(**res) for res in resultados]  # Crea instancias de Todo
+            return [Todo(**res) for res in resultados] 
         except mysql.connector.Error as error:
             print(f'Error al obtener todos: {error}')
             return None
