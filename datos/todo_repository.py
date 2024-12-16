@@ -5,7 +5,7 @@ def insertar_todo(todo: Todo):
     conexion = generar_conexion()
     if conexion:
         cursor = conexion.cursor()
-        sql = '''INSERT INTO todos (title, completed, iduser) 
+        sql = '''INSERT INTO todo (title, completed, iduser) 
                  VALUES (%s, %s, %s)'''
         datos = (todo.title, todo.completed, todo.iduser)
 
@@ -23,7 +23,7 @@ def obtener_todos():
     conexion = generar_conexion()
     if conexion:
         cursor = conexion.cursor(dictionary=True)
-        sql = '''SELECT * FROM todos'''
+        sql = '''SELECT * FROM todo'''
         try:
             cursor.execute(sql)
             resultados = cursor.fetchall()
@@ -39,7 +39,7 @@ def actualizar_todo(todo_id, nuevos_datos: Todo):
     conexion = generar_conexion()
     if conexion:
         cursor = conexion.cursor()
-        sql = '''UPDATE todos 
+        sql = '''UPDATE todo 
                  SET title = %s, completed = %s, iduser = %s 
                  WHERE idtodo = %s'''
         datos = (nuevos_datos.title, nuevos_datos.completed, nuevos_datos.iduser, todo_id)
@@ -58,7 +58,7 @@ def eliminar_todo(todo_id):
     conexion = generar_conexion()
     if conexion:
         cursor = conexion.cursor()
-        sql = '''DELETE FROM todos WHERE idtodo = %s'''
+        sql = '''DELETE FROM todo WHERE idtodo = %s'''
         
         try:
             cursor.execute(sql, (todo_id,))
