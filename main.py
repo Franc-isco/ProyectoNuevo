@@ -2,7 +2,7 @@ from servicios.consumir_api_users import consumir_api_users, crear_usuario, actu
 from servicios.consumir_api_todos import consulta_api_todos, crear_todo, actualizar_todo, eliminar_todo
 from negocios.encriptacion import encriptar_contrasena, desencriptar_contrasena, verificar_contrasena
 from servicios.serper import buscar_en_api
-from negocios.procesar_datos import procesar_datos_api
+from negocios.procesar_datos import procesar_datos_api_user, procesar_datos_api_todos
 
 
 def crear_nuevo_usuario():
@@ -99,8 +99,9 @@ def mostrar_menu_principal():
     print("4. Desencriptar contraseña")
     print("5. Verificar contraseña")
     print("6. Buscar en API Serper")
-    print("7. Procesar datos de la API y guardar en la Base de Datos")
-    print("8. Salir")
+    print("7. Procesar datos de la API user y guardar en la Base de Datos")
+    print("8. Procesar datos de la API todos y guardar en la Base de Datos")
+    print("9. Salir")
 
 def mostrar_menu_usuarios():
     print("Seleccione una opción de Usuarios:")
@@ -200,9 +201,12 @@ def main():
                 print(f"Error al buscar en la API: {e}")
 
         elif opcion_principal == "7":
-            procesar_datos_api()
+            procesar_datos_api_user()
         
         elif opcion_principal == "8":
+            procesar_datos_api_todos()
+        
+        elif opcion_principal == "9":
             print("Saliendo del programa...")
             break
 

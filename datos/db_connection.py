@@ -5,7 +5,7 @@ from mysql.connector import errorcode
 USER = 'root'
 PASSWORD = ''
 SERVER = 'localhost'
-DATABASE = ''
+DATABASE = 'prueba3_api'
 
 def generar_conexion():
     config = {
@@ -36,3 +36,4 @@ def cerrar_conexion(conexion):
     if conexion.is_connected():
         conexion.close()
         print('Conexión cerrada')
+

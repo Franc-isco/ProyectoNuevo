@@ -14,19 +14,26 @@ def consulta_api_todos():
         respuesta = requests.get(direccion)
 
         if respuesta.status_code == 200:
-            print(respuesta.json())
+            todos = respuesta.json()  
+            print("Datos obtenidos de la API:")
+            for todo in todos:  
+                print(f"ID: {todo['id']}, Título: {todo['title']}, Completado: {todo['completed']}, ID de Usuario: {todo['userId']}")
+            return todos  
         else:
             print(f"Error: {respuesta.status_code}")
+            return []  
 
     except requests.exceptions.Timeout:
         print("Se sobrepasó el tiempo de espera para la respuesta.")
-    
+        return []  
+
     except requests.exceptions.RequestException as error:
         print(f"Error en la solicitud: {error}")
-    
+        return []  
+
     except requests.exceptions.ConnectionError:
         print("No se pudo establecer la conexión.")
-
+        return []
 
 
 def crear_todo(user_id, titulo, completado=False):

@@ -11,3 +11,5 @@ class User(add, cia):
         self.email = email
         self.phone = phone
         self.website = website
+        self.idaddress = idaddress
+        self.idcompany = idcompany

@@ -6,3 +6,4 @@ class Todo(User):
         self.idtodo = idtodo
         self.title = title
         self.completed = completed
+        self.iduser = iduser

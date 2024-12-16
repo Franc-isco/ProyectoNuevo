@@ -5,9 +5,9 @@ def insertar_todo(todo: Todo):
     conexion = generar_conexion()
     if conexion:
         cursor = conexion.cursor()
-        sql = '''INSERT INTO todo (title, completed, iduser) 
-                 VALUES (%s, %s, %s)'''
-        datos = (todo.title, todo.completed, todo.iduser)
+        sql = '''INSERT INTO todo (idtodo, title, completed, iduser) 
+                 VALUES (%s, %s, %s, %s)'''
+        datos = (todo.idtodo, todo.title, todo.completed, todo.iduser)
 
         try:
             cursor.execute(sql, datos)

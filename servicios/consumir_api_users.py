@@ -9,11 +9,12 @@ from negocios.negocio_url import url_servicio
 
 def consumir_api_users():
     direccion = url_servicio("users") 
+    usuarios = []  
     try: 
         respuesta = requests.get(direccion)
 
         if respuesta.status_code == 200:
-            usuarios = respuesta.json()
+            usuarios = respuesta.json()  
             for usuario in usuarios:
                 print(f"ID: {usuario['id']}")
                 print(f"Nombre: {usuario['name']}")
@@ -31,12 +32,12 @@ def consumir_api_users():
 
     except requests.exceptions.Timeout:
         print("Se sobrepasó el tiempo de espera para la respuesta.")
-
     except requests.exceptions.RequestException as error:
         print(f"Error en la solicitud: {error}")
-
     except requests.exceptions.ConnectionError:
         print("No se pudo establecer la conexión.")
+    
+    return usuarios
 
 
 
