@@ -99,7 +99,7 @@ def mostrar_menu_principal():
     print("4. Desencriptar contraseña")
     print("5. Verificar contraseña")
     print("6. Buscar en API Serper")
-    print("7. Procesar datos de la API")
+    print("7. Procesar datos de la API y guardar en la Base de Datos")
     print("8. Salir")
 
 def mostrar_menu_usuarios():
